@@ -26,7 +26,7 @@
     return dimension;
 }
 
-var tablero=[];
+var array=[];
 
 var dimension=dimensionarTablero(tablero);
 console.log(dimension);
@@ -43,19 +43,24 @@ function crearTablero(dimension, tablero=[]) {
     }
     return tablero;
 }
+var tablero=crearTablero(dimension,array)
 
 console.log(crearTablero(dimension,tablero));
-for (let index = 0; index < array.length; index++) {
-    const element = array[index];
+// for (let index = 0; index < array.length; index++) {
+//     const element = array[index];
     
+// }
+function calcularPosicion(dimension,tablero=[]){
+    do {
+        let x=parseInt(Math.random()*dimension);
+        let y=parseInt(Math.random()*dimension);
+        let valido;
+        valido=tablero[x][y];
+        
+    }  while (valido!="0");
+    return [x,y];
 }
-function calcularPosicion(dimension){
-    while (tablero[[x],[y]]!=null) {
-        x=Math.random()*dimension-1;
-        y=Math.random()*dimension-1;
-    }
-    return posiciones[x,y];
-}
+console.log(calcularPosicion(dimension));
 
 function calcularDireccion() {
     
