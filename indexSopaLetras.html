@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopa de letras</title>
+</head>
+<body>
+    <script>
+        function dimensionarTablero(palabras=[]) {
+        var longitud=0;
+        var minimo=palabras[0];
+        minimo=String(minimo);
+        for (var element of palabras) {
+            element=String(element);
+            
+            if(element.length>minimo.length){
+                minimo=element;
+            }
+            longitud+=palabras.length;
+        }
+        dimension=minimo.length;    
+        while (dimension.length*dimension.length<longitud){
+            dimension+=1;
+        }
+    return dimension;
+}
+
+var tablero=[];
+
+var dimension=dimensionarTablero(tablero);
+console.log(dimension);
+function crearTablero(dimension, tablero=[]) {
+    for (let index = 0; index < dimension; index++) {
+        tablero[index]=new Array(dimension);
+    }
+    for (let i = 0; i < dimension; i++) {
+        
+        for (let j = 0; j < dimension; j++) {
+            tablero[i][j]="0";
+        }
+        
+    }
+    return tablero;
+}
+
+console.log(crearTablero(dimension,tablero));
+for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    
+}
+function calcularPosicion(dimension){
+    while (tablero[[x],[y]]!=null) {
+        x=Math.random()*dimension-1;
+        y=Math.random()*dimension-1;
+    }
+    return posiciones[x,y];
+}
+
+function calcularDireccion() {
+    
+}
+    </script>
+</body>
+</html>
