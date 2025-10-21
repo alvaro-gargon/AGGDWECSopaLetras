@@ -23,8 +23,8 @@
         while (dimension.length*dimension.length<longitud){
             dimension+=1;
         }
-    return dimension;
-}
+            return dimension;
+        }
 
 var array=[];
 
@@ -87,14 +87,20 @@ var direccion=calcularDireccionAleatoria(dimension);
 
 function comprobarPosicionValida(tablero,posicion,direccion,palabra) {
     //la direccion 0 es hacia arriba, las direcciones se recorren como un reloj
+    aPalabra=Array(palabra);
     switch (direccion) {
         
         case 0:
             //hacia arriba
             let longitud_y=posicion[x][y];
-            var resto=dimension-longitud_y;
+            var resto=(dimension-1)-longitud_y;
             if (palabra.length<resto) {
-               return direccion; 
+                for (let index = 0; index < aPalabra.length; index++) {
+                    if(tablero[x][y]===0 || tablero[x][y]===aPalabra[index]){
+                        return direccion; 
+                    }
+                    
+                }
             }
             break;
         case 1:
@@ -118,7 +124,7 @@ function comprobarPosicionValida(tablero,posicion,direccion,palabra) {
         case 2:
             //hacia la derecha
             let longitud_x=posicion[x];
-            var resto=dimension-longitud_x;
+            var resto=(dimension-1)-longitud_x;
             if (palabra.length<resto) {
                return direccion; 
             }
@@ -126,7 +132,7 @@ function comprobarPosicionValida(tablero,posicion,direccion,palabra) {
         case 3:
             //diagonal abajo/derecha
             aux[x]=posicion[x];
-            while (aux[x]!==dimension || aux[x][y]!==0){
+            while (aux[x]!==(dimension-1) || aux[x][y]!==0){
                 aux[x]=aux[x]+1;
                 aux[x][y]=aux[x][y]-1;
                 cont++;
@@ -164,7 +170,7 @@ function comprobarPosicionValida(tablero,posicion,direccion,palabra) {
         case 7:
             //diagonal arriba/izquierda
             aux[x][y]=posicion[x][y];
-            while (aux[x]!==0 || aux[x][y]!==dimension){
+            while (aux[x]!==0 || aux[x][y]!==(dimension-1)){
                 aux[x]=aux[x]+1;
                 aux[x][y]=aux[x][y]-1;
                 cont++;
@@ -173,14 +179,13 @@ function comprobarPosicionValida(tablero,posicion,direccion,palabra) {
                return direccion; 
             }
             break;
-    
         default:
             break;
     }
 }
 
 function escribirPalabra(tablero,palabra,posicion,direccion) {
-    
+
 }
 function pintarTablero(tablero){
 
