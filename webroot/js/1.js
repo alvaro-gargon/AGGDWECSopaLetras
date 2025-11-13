@@ -1,21 +1,32 @@
+if(navigator.cookieEnabled==false){
+    alert("Cookies desactivadas, no se guardarán las puntuaciones");
+}
+if(navigator.onLine==false){
+    let mensaje=document.getElementById("offline");
+    mensaje.style.display="block";
+}
+
 function Reloj(){
    let actual=new Date();
    let horas=actual.getHours();
    let minutos=actual.getMinutes();
    let segundos=actual.getSeconds();
    let hora="";
-   //Convertimos los números a dos dígitos, o sea, 6 -> 06
+   //Convertimos los números de un dígito a dos dígitos
    horas = (horas<=9)?("0"+horas):horas;
    minutos = (minutos<=9)?("0"+minutos):minutos;
    segundos=(segundos<=9)? ("0"+segundos):segundos;        
-   //Aquí construimos la cadena de texto HTML con la hora,
-   //y el tipo de letra que se escribe en la capa del reloj.
+
    hora = horas+":"+minutos+":" +segundos
-   reloj = document.getElementById('reloj')
+   var reloj = document.getElementById("reloj");
    reloj.innerHTML=hora;
-   //ejecuta la función cada segundo (1000 miliseg)
-   setTimeout("Reloj()",1000);
+   
 }
+
+Reloj();
+//ejecuto la funcion cada segundo, recordar que setTimeout usa milisegundos
+setInterval(Reloj,1000);
+
 
 function dimensionarTablero(palabras=[]) {
         var longitud=0;
