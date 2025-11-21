@@ -81,7 +81,7 @@ Reloj();
 //ejecuto la funcion cada segundo, recordar que setTimeout usa milisegundos
 setInterval(Reloj,1000);
 
-
+/*
 function dimensionarTablero(palabras=[]) {
         var longitud=0;
         var minimo=palabras[0];
@@ -266,3 +266,4 @@ function escribirPalabra(tablero,palabra,posicion,direccion) {
 function pintarTablero(tablero){
 
 }
+*/

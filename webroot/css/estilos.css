@@ -38,3 +38,12 @@ footer{
 #reloj img{
     height: 100px;
 }
+.seleccionado{
+    background-color: yellow;
+}
+.correcta{
+    background-color: lightgreen;
+}
+.incorrecta{
+    background-color: red;
+}
