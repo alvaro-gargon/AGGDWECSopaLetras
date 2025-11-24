@@ -29,11 +29,13 @@ h2{
     border-top: 1px solid black;
 }
 footer{
-    width: 100%;
-    position: absolute;
+    
+    position: relative;
     background-color: aqua;
     bottom: 0px;
     text-align: center;
+    left: 0%;
+    width: 100%;
 }
 #reloj img{
     height: 100px;
@@ -46,4 +48,25 @@ footer{
 }
 .incorrecta{
     background-color: red;
+}
+.contenedorSopaLetras{
+    width: 0%;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    position: relative;
+    left: 33%;
+}
+.contenedorSopaLetras table{
+    border: 1px solid black;
+    & td{
+        border: 1px solid salmon;
+        padding: 10px;
+        font-weight: bold;
+    }
+}
+#palabrasClave{
+    position: relative;
+    margin-top: 40px;
+    width: 30%;
+    left: 37%;
 }
