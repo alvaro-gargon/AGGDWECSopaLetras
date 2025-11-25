@@ -384,68 +384,100 @@ function mostrarTabla(tablero) {
                   
                   //en el caso en el que la fila es la misma
                   if (celdaPrimera.getAttribute("data-fila")==celda.getAttribute("data-fila")) {
-                    let arrayContenido;
-                    while (celdaPrimera.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
-                      
-                      if(celdaPrimera.getAttribute("data-columna")<celda.getAttribute("data-columna")){
-                        celdaPrimera.setAttribute("data-columna",parseInt(celdaPrimera.getAttribute("data-columna"))+1);
+                    let aux=0;
+                    let fila=celdaPrimera.getAttribute("data-fila");
+                    let columna=celdaPrimera.getAttribute("data-columna");
+                    //celda seleccionada hace referencia a la celda que se clico en primer lugar
+                    let celdaSeleccionada=null;
+                    var arrayContenido;
+                    let selector='[data-fila="'+fila+'"],[data-columna="'+(columna+aux)+'"]';
+                    celdaSeleccionada=document.querySelector(selector);
+                    while (celdaSeleccionada.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
+                      let selector='[data-fila="'+fila+'"],[data-columna="'+(columna+aux)+'"]';
+                      celdaSeleccionada=document.querySelector(selector);
+                      console.log(celdaSeleccionada.getAttribute("data-columna"));
+                      if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
+                        aux++;
                       }else{
-                        celda.setAttribute("data-columna",parseInt(celda.getAttribute("data-columna"))+1);
+                        aux--;
                       }
+                      arrayContenido=arrayContenido+celdaSeleccionada.textContent;
+                      celdaSeleccionada.classList.add("seleccionado");
+                      
                     }
                   }else{
                     //en el caso en el que la columna es la misma
                     if (celdaPrimera.getAttribute("data-columna")==celda.getAttribute("data-columna")) {
+                      let aux=0;
+                      let fila=celdaPrimera.getAttribute("data-fila");
+                      let columna=celda.getAttribute("data-columna");
+                      //celda seleccionada hace referencia a la celda que se clico en primer lugar
+                      let celdaSeleccionada=celdaPrimera;
                       let arrayContenido;
-                      while (celdaPrimera.getAttribute("data-fila")!==celda.getAttribute("data-fila")) {
+                      while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila")) {
                         
-                        if(celdaPrimera.getAttribute("data-fila")<celda.getAttribute("data-fila")){
-                          celdaPrimera.setAttribute("data-fila",parseInt(celdaPrimera.getAttribute("data-fila"))+1);
+                        if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
+                          aux++;
                         }else{
-                          celda.setAttribute("data-fila",parseInt(celda.getAttribute("data-fila"))+1);
+                          aux--;
                         }
+                        arrayContenido=arrayContenido+celdaSeleccionada.textContent();
+                        celdaSeleccionada.classList.add("seleccionado");
+                        celdaSeleccionada=document.querySelector('data-fila[',fila+aux,'],data-columna[',columna,']');
                       }
                     }else{
                       //en el caso en el que la palabra este en diagonal
-                      
+                      let auxFila=0;
+                      let auxColumna=0;
+                      let fila=celdaPrimera.getAttribute("data-fila");
+                      let columna=celda.getAttribute("data-columna");
+                      //celda seleccionada hace referencia a la celda que se clico en primer lugar
+                      let celdaSeleccionada=celdaPrimera;
                       let arrayContenido;
-                      while (celdaPrimera.getAttribute("data-fila")!==celda.getAttribute("data-fila") && 
+                      while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila") && 
                       celdaPrimera.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
                       
-                        if(celdaPrimera.getAttribute("data-fila")<celda.getAttribute("data-fila")){
-                          celdaPrimera.setAttribute("data-fila",parseInt(celdaPrimera.getAttribute("data-fila"))+1);
+                        if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
+                          auxFila++;
                         }else{
-                          celda.setAttribute("data-fila",parseInt(celda.getAttribute("data-fila"))+1);
+                          auxFila--;
                         }
-                        if(celdaPrimera.getAttribute("data-columna")<celda.getAttribute("data-columna")){
-                        celdaPrimera.setAttribute("data-columna",parseInt(celdaPrimera.getAttribute("data-columna"))+1);
+                        if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
+                          auxColumna++;
                         }else{
-                        celda.setAttribute("data-columna",parseInt(celda.getAttribute("data-columna"))+1);
+                          auxColumna--;
                         }
+                        arrayContenido=arrayContenido+celdaSeleccionada.textContent();
+                        celdaSeleccionada.classList.add("seleccionado");
+                        celdaSeleccionada=document.querySelector('data-fila[',fila+auxFila,'],data-columna[',columna+auxColumna,']');
                       }
                     }
                   }
-                let palabra;
-                for (const letra of object) {
-                  palabra=palabra+letra;
-                }
-                
-                if(arrayPalabras.includes(palabra)){
+                  //declaramos la palabra 
+                  var palabra;
+                  var palabraReverse;
+                  //relleno la palabra en la direccion recogida
+                  for (const letra of arrayContenido) {
+                    palabra=palabra+letra
+                  }
+                  //relleno la palabra en la direccion contratia a la recogida
+                  for (const letra of arrayContenido.reverse()) {
+                    palabraReverse=palabraReverse+letra
+                  }
+                  //comprobamos si la palabra se encuentra en alguna de las direcciones
+                if(arrayPalabras.includes(palabra) || arrayPalabras.includes(palabraReverse)){
                   celda.classList.add("correcta");
                   celda.classList.remove("seleccionado");
                 }else{
+                  celda.classList.remove("seleccionado");
                   setTimeout(() => {
                     celda.classList.add("incorrecta");
-                    celda.classList.remove("seleccionado");
                   }, 1000);
                 }
               }//si las celdas seleccionadas se encuentran en una posicion incorrecta
               else{
-                // setTimeout(() => {
-                //   celdaActual.classList.add("incorrecta");
-                // }, 2000);
                 alert("Direccion equivocada");
-                celda.classList.remove("seleccionado");
+                celdaPrimera.classList.remove("seleccionado");
               }
             }//si no hay una celda seleccionada
             else{
