@@ -104,7 +104,7 @@ function rellenarTablero(tablero) {
   "L", 
   "M", 
   "N", 
-  "Ã‘", 
+  "Ñ", 
   "O", 
   "P", 
   "Q", 
@@ -379,21 +379,23 @@ function mostrarTabla(tablero) {
               //si las celdas selecciondas se encuentran en una direccion correcta
               if (celdaPrimera.getAttribute("data-fila")==celda.getAttribute("data-fila") || celdaPrimera.getAttribute("data-columna")==celda.getAttribute("data-columna") || 
                 Math.abs(celdaPrimera.getAttribute("data-fila")-celda.getAttribute("data-fila"))==Math.abs(celdaPrimera.getAttribute("data-columna")-celda.getAttribute("data-columna"))) {
-                  
+                  var contador=0;//variable para indicar el indice del arrayContenido para poder rellenarlo
                   //seleccionar el contenido de entre celdas seleccionadas
-                  
+                      
+                  var arrayContenido=[];//array donde meto las letras
                   //en el caso en el que la fila es la misma
                   if (celdaPrimera.getAttribute("data-fila")==celda.getAttribute("data-fila")) {
                     let aux=0;
-                    let fila=celdaPrimera.getAttribute("data-fila");
-                    let columna=celdaPrimera.getAttribute("data-columna");
+                    let fila=Number(celdaPrimera.getAttribute("data-fila"));
+                    let columna=Number(celdaPrimera.getAttribute("data-columna"));
                     //celda seleccionada hace referencia a la celda que se clico en primer lugar
                     let celdaSeleccionada=null;
-                    var arrayContenido;
-                    let selector='[data-fila="'+fila+'"],[data-columna="'+(columna+aux)+'"]';
+
+                    let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
                     celdaSeleccionada=document.querySelector(selector);
                     while (celdaSeleccionada.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
-                      let selector='[data-fila="'+fila+'"],[data-columna="'+(columna+aux)+'"]';
+                      
+                      let selector='[data-fila="'+fila+'"][data-columna="'+(columna+aux)+'"]';
                       celdaSeleccionada=document.querySelector(selector);
                       console.log(celdaSeleccionada.getAttribute("data-columna"));
                       if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
@@ -401,7 +403,8 @@ function mostrarTabla(tablero) {
                       }else{
                         aux--;
                       }
-                      arrayContenido=arrayContenido+celdaSeleccionada.textContent;
+                      arrayContenido[contador]=celdaSeleccionada.textContent;
+                      contador++;
                       celdaSeleccionada.classList.add("seleccionado");
                       
                     }
@@ -409,34 +412,43 @@ function mostrarTabla(tablero) {
                     //en el caso en el que la columna es la misma
                     if (celdaPrimera.getAttribute("data-columna")==celda.getAttribute("data-columna")) {
                       let aux=0;
-                      let fila=celdaPrimera.getAttribute("data-fila");
-                      let columna=celda.getAttribute("data-columna");
+                      let fila=Number(celdaPrimera.getAttribute("data-fila"));
+                      let columna=Number(celdaPrimera.getAttribute("data-columna"));
                       //celda seleccionada hace referencia a la celda que se clico en primer lugar
-                      let celdaSeleccionada=celdaPrimera;
-                      let arrayContenido;
+                      let celdaSeleccionada=null;
+                      
+                      let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
+                      celdaSeleccionada=document.querySelector(selector);
                       while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila")) {
                         
+                        let selector='[data-fila="'+(fila+aux)+'"][data-columna="'+(columna)+'"]';
+                        celdaSeleccionada=document.querySelector(selector);
                         if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
                           aux++;
                         }else{
                           aux--;
                         }
-                        arrayContenido=arrayContenido+celdaSeleccionada.textContent();
+                        arrayContenido[contador]=celdaSeleccionada.textContent;
+                        contador++;
                         celdaSeleccionada.classList.add("seleccionado");
-                        celdaSeleccionada=document.querySelector('data-fila[',fila+aux,'],data-columna[',columna,']');
+                        
                       }
                     }else{
                       //en el caso en el que la palabra este en diagonal
                       let auxFila=0;
                       let auxColumna=0;
-                      let fila=celdaPrimera.getAttribute("data-fila");
-                      let columna=celda.getAttribute("data-columna");
+                      let fila=Number(celdaPrimera.getAttribute("data-fila"));
+                      let columna=Number(celdaPrimera.getAttribute("data-columna"));
                       //celda seleccionada hace referencia a la celda que se clico en primer lugar
-                      let celdaSeleccionada=celdaPrimera;
-                      let arrayContenido;
+                      let celdaSeleccionada=null;
+                      
+                      let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
+                      celdaSeleccionada=document.querySelector(selector);
                       while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila") && 
                       celdaPrimera.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
-                      
+                        
+                        let selector='[data-fila="'+(fila+auxFila)+'"][data-columna="'+(columna+auxColumna)+'"]';
+                        celdaSeleccionada=document.querySelector(selector);
                         if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
                           auxFila++;
                         }else{
@@ -447,9 +459,9 @@ function mostrarTabla(tablero) {
                         }else{
                           auxColumna--;
                         }
-                        arrayContenido=arrayContenido+celdaSeleccionada.textContent();
+                        arrayContenido[contador]=celdaSeleccionada.textContent;
+                        contador++;
                         celdaSeleccionada.classList.add("seleccionado");
-                        celdaSeleccionada=document.querySelector('data-fila[',fila+auxFila,'],data-columna[',columna+auxColumna,']');
                       }
                     }
                   }
@@ -457,6 +469,7 @@ function mostrarTabla(tablero) {
                   var palabra;
                   var palabraReverse;
                   //relleno la palabra en la direccion recogida
+                  console.log(arrayContenido);
                   for (const letra of arrayContenido) {
                     palabra=palabra+letra
                   }
@@ -465,15 +478,15 @@ function mostrarTabla(tablero) {
                     palabraReverse=palabraReverse+letra
                   }
                   //comprobamos si la palabra se encuentra en alguna de las direcciones
-                if(arrayPalabras.includes(palabra) || arrayPalabras.includes(palabraReverse)){
-                  celda.classList.add("correcta");
-                  celda.classList.remove("seleccionado");
-                }else{
-                  celda.classList.remove("seleccionado");
-                  setTimeout(() => {
-                    celda.classList.add("incorrecta");
-                  }, 1000);
-                }
+                  if(arrayPalabras.includes(palabra) || arrayPalabras.includes(palabraReverse)){
+                    celda.classList.add("correcta");
+                    celda.classList.remove("seleccionado");
+                  }else{
+                    celda.classList.remove("seleccionado");
+                    setTimeout(() => {
+                      celda.classList.add("incorrecta");
+                    }, 1000);
+                  }
               }//si las celdas seleccionadas se encuentran en una posicion incorrecta
               else{
                 alert("Direccion equivocada");
