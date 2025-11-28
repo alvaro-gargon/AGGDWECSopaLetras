@@ -385,29 +385,23 @@ function mostrarTabla(tablero) {
                   var arrayContenido=[];//array donde meto las letras
                   //en el caso en el que la fila es la misma
                   if (celdaPrimera.getAttribute("data-fila")==celda.getAttribute("data-fila")) {
-                    let aux=0;
-                    let fila=Number(celdaPrimera.getAttribute("data-fila"));
-                    let columna=Number(celdaPrimera.getAttribute("data-columna"));
-                    //celda seleccionada hace referencia a la celda que se clico en primer lugar
-                    let celdaSeleccionada=null;
+                      let fila = Number(celdaPrimera.getAttribute("data-fila"));
+                      let colInicio = Number(celdaPrimera.getAttribute("data-columna"));
+                      let colFin = Number(celda.getAttribute("data-columna"));
 
-                    let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
-                    celdaSeleccionada=document.querySelector(selector);
-                    while (celdaSeleccionada.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
-                      
-                      let selector='[data-fila="'+fila+'"][data-columna="'+(columna+aux)+'"]';
-                      celdaSeleccionada=document.querySelector(selector);
-                      console.log(celdaSeleccionada.getAttribute("data-columna"));
-                      if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
-                        aux++;
-                      }else{
-                        aux--;
+                      // Determinar dirección
+                      let step = colInicio <= colFin ? 1 : -1;
+
+                      // Recorremos desde colInicio hasta colFin incluidos
+                      for (let c = colInicio; c !== colFin + step; c += step) {
+                        let selector = `[data-fila="${fila}"][data-columna="${c}"]`;
+                        let celdaActual = document.querySelector(selector);
+
+                        arrayContenido[contador] = celdaActual.textContent;
+                        contador++;
+
+                        celdaActual.classList.add("seleccionado");
                       }
-                      arrayContenido[contador]=celdaSeleccionada.textContent;
-                      contador++;
-                      celdaSeleccionada.classList.add("seleccionado");
-                      
-                    }
                   }else{
                     //en el caso en el que la columna es la misma
                     if (celdaPrimera.getAttribute("data-columna")==celda.getAttribute("data-columna")) {
@@ -466,26 +460,40 @@ function mostrarTabla(tablero) {
                     }
                   }
                   //declaramos la palabra 
-                  var palabra;
-                  var palabraReverse;
+                  var palabra="";
+                  var palabraReverse="";
                   //relleno la palabra en la direccion recogida
                   console.log(arrayContenido);
                   for (const letra of arrayContenido) {
                     palabra=palabra+letra
                   }
+                  console.log(palabra);
                   //relleno la palabra en la direccion contratia a la recogida
                   for (const letra of arrayContenido.reverse()) {
                     palabraReverse=palabraReverse+letra
                   }
                   //comprobamos si la palabra se encuentra en alguna de las direcciones
                   if(arrayPalabras.includes(palabra) || arrayPalabras.includes(palabraReverse)){
-                    celda.classList.add("correcta");
-                    celda.classList.remove("seleccionado");
+                    //utilizo [...] para convertirlo de HTMLCollection a un array
+                    var arraySelecionados=[...document.getElementsByClassName("seleccionado")];
+                    for (const elemento of arraySelecionados) {
+                      elemento.classList.add("correcta");
+                      elemento.classList.remove("seleccionado");
+                    }
+                    
                   }else{
-                    celda.classList.remove("seleccionado");
-                    setTimeout(() => {
-                      celda.classList.add("incorrecta");
-                    }, 1000);
+                    //utilizo [...] para convertirlo de HTMLCollection a un array
+                    var arraySelecionados=[...document.getElementsByClassName("seleccionado")];
+                    console.log(palabra);
+                    for (const elemento of arraySelecionados) {
+                      console.log(elemento);
+                      elemento.classList.remove("seleccionado");
+                      elemento.classList.add("incorrecta");
+                      setTimeout(() => {
+                        elemento.classList.remove("incorrecta");
+                      }, 1000);
+                    }
+                    
                   }
               }//si las celdas seleccionadas se encuentran en una posicion incorrecta
               else{

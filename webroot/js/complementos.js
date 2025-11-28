@@ -82,3 +82,7 @@ Reloj();
 setInterval(Reloj,1000);
 
 var boton= document.getElementsByTagName("button")[0];
+    boton.addEventListener("click",(ev)=>{
+    let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
+    sopaDeLetras.setAttribute('style','visibility: visible;');
+});

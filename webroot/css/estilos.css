@@ -55,7 +55,7 @@ footer{
     margin-bottom: 60px;
     position: relative;
     left: 33%;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .contenedorSopaLetras table{
     border: 1px solid black;
@@ -70,4 +70,9 @@ footer{
     margin-top: 40px;
     width: 30%;
     left: 37%;
+}
+button{
+    margin: 20px;
+    position: relative;
+    left: 44%;
 }
