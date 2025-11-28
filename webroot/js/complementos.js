@@ -80,7 +80,7 @@ function Reloj(){
 Reloj();
 //ejecuto la funcion cada segundo, recordar que setTimeout usa milisegundos
 setInterval(Reloj,1000);
-
+var temporizador;
 var boton= document.getElementsByTagName("button")[0];
     boton.addEventListener("click",(ev)=>{
     let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
