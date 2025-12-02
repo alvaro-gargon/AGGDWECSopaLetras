@@ -430,26 +430,26 @@ function mostrarTabla(tablero) {
                       let auxColumna=0;
                       let fila=Number(celdaPrimera.getAttribute("data-fila"));
                       let columna=Number(celdaPrimera.getAttribute("data-columna"));
+                      let colFin = Number(celda.getAttribute("data-columna"));
+                      let filafin=Number(celda.getAttribute("data-fila"));
                       //celda seleccionada hace referencia a la celda que se clico en primer lugar
                       let celdaSeleccionada=null;
                       
+                      auxFila= fila <= filafin ? 1 : -1;
+                      auxColumna = columna <= colFin ? 1 : -1;
+
                       let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
                       celdaSeleccionada=document.querySelector(selector);
+                      arrayContenido[contador]=celdaSeleccionada.textContent;
+                      contador++;
+                      celdaSeleccionada.classList.add("seleccionado");
                       while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila") && 
                       celdaPrimera.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
                         
                         let selector='[data-fila="'+(fila+auxFila)+'"][data-columna="'+(columna+auxColumna)+'"]';
                         celdaSeleccionada=document.querySelector(selector);
-                        if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
-                          auxFila++;
-                        }else{
-                          auxFila--;
-                        }
-                        if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
-                          auxColumna++;
-                        }else{
-                          auxColumna--;
-                        }
+                        fila+=auxFila;
+                        columna+=auxColumna;
                         arrayContenido[contador]=celdaSeleccionada.textContent;
                         contador++;
                         celdaSeleccionada.classList.add("seleccionado");
