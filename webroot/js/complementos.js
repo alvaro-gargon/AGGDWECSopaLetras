@@ -78,11 +78,25 @@ function Reloj(){
 }
 
 Reloj();
-//ejecuto la funcion cada segundo, recordar que setTimeout usa milisegundos
+//ejecuto la funcion cada segundo, recordar que setInterval usa milisegundos
 setInterval(Reloj,1000);
-var temporizador;
-var boton= document.getElementsByTagName("button")[0];
-    boton.addEventListener("click",(ev)=>{
-    let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
-    sopaDeLetras.setAttribute('style','visibility: visible;');
-});
+    
+    var boton= document.getElementsByTagName("button")[0];
+        boton.addEventListener("click",(ev)=>{
+        let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
+        sopaDeLetras.setAttribute('style','visibility: visible;');
+        let segundos=0;
+        let minutos=0;
+        function tiempoPasando() {
+            let temporizador=document.getElementById("temporizador");
+            if (segundos===60) {
+                minutos++;
+                segundos=0;
+            }else{
+                segundos++;
+            }
+            temporizador.innerText=minutos+":"+(segundos<10 ? "0"+segundos : segundos);
+        }
+        setInterval(tiempoPasando,1000);
+    });
+
