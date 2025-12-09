@@ -11,9 +11,7 @@ console.log(arrayPalabras.length);
 
 function rellenarTablaPuntuacion(puntuacion) {
     let tabla=document.getElementById("puntuaciones");
-    
-
-
+    console.log(puntuacion);
     if(localStorage.getItem("puntuacion1")>puntuacion || tabla.children[1]=="Sin tiempo"){
         let puntuacionSuperada=tabla.children[1];
         tabla.children[1].innerHTML=puntuacion;
@@ -101,10 +99,9 @@ setInterval(Reloj,1000);
                 segundos++;
             }
             temporizador.innerText=minutos+":"+(segundos<10 ? "0"+segundos : segundos);
-            console.log(aciertos);
             if (arrayPalabras.length===aciertos) {
                 clearInterval(cronometro);
-                tiempoFinal=temporizador.textContent;
+                tiempoFinal=(minutos*60+segundos);
                 rellenarTablaPuntuacion(tiempoFinal)
                 return;
             }
