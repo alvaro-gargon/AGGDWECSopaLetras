@@ -1,3 +1,5 @@
+import{arrayPalabras} from './tablero.js';
+
 if(navigator.cookieEnabled==false){
     alert("Cookies desactivadas, no se guardarán las puntuaciones");
 }
@@ -5,7 +7,7 @@ if(navigator.onLine==false){
     let mensaje=document.getElementById("offline");
     mensaje.style.display="block";
 }
-
+console.log(arrayPalabras.length);
 
 function rellenarTablaPuntuacion(puntuacion) {
     let tabla=document.getElementById("puntuaciones");
@@ -82,13 +84,16 @@ Reloj();
 setInterval(Reloj,1000);
     
     var boton= document.getElementsByTagName("button")[0];
-        boton.addEventListener("click",(ev)=>{
+    let cronometro;
+    let tiempoFinal;
+    boton.addEventListener("click",(ev)=>{
         let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
         sopaDeLetras.setAttribute('style','visibility: visible;');
         let segundos=0;
         let minutos=0;
         function tiempoPasando() {
             let temporizador=document.getElementById("temporizador");
+            let aciertos=parseInt(document.getElementById("aciertos").textContent);
             if (segundos===60) {
                 minutos++;
                 segundos=0;
@@ -96,7 +101,14 @@ setInterval(Reloj,1000);
                 segundos++;
             }
             temporizador.innerText=minutos+":"+(segundos<10 ? "0"+segundos : segundos);
+            console.log(aciertos);
+            if (arrayPalabras.length===aciertos) {
+                clearInterval(cronometro);
+                tiempoFinal=temporizador.textContent;
+                rellenarTablaPuntuacion(tiempoFinal)
+                return;
+            }
         }
-        setInterval(tiempoPasando,1000);
+        cronometro=setInterval(tiempoPasando,1000);
+        
     });
-

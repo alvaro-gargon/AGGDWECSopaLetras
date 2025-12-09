@@ -1,25 +1,29 @@
+// var arrayPalabras = [ 
+//   "LUNES", 
+//   "MARTES", 
+//   "MIERCOLES", 
+//   "JUEVES", 
+//   "VIERNES", 
+//   "SABADO", 
+//   "DOMINGO", 
+//   "ENERO", 
+//   "FEBRERO", 
+//   "MARZO", 
+//   "ABRIL", 
+//   "MAYO", 
+//   "JUNIO", 
+//   "JULIO", 
+//   "AGOSTO", 
+//   "SEPTIEMBRE", 
+//   "OCTUBRE", 
+//   "NOVIEMBRE", 
+//   "DICIEMBRE", 
+// ]; 
 var arrayPalabras = [ 
   "LUNES", 
-  "MARTES", 
-  "MIERCOLES", 
-  "JUEVES", 
-  "VIERNES", 
-  "SABADO", 
-  "DOMINGO", 
-  "ENERO", 
-  "FEBRERO", 
-  "MARZO", 
-  "ABRIL", 
-  "MAYO", 
-  "JUNIO", 
-  "JULIO", 
-  "AGOSTO", 
-  "SEPTIEMBRE", 
-  "OCTUBRE", 
-  "NOVIEMBRE", 
-  "DICIEMBRE", 
+  "MARTES" 
 ]; 
-
+export var arrayPalabras;
 function mostrarPalabras(arrayPalabras){
   let arrayBuscar=arrayPalabras;
   let caja=document.getElementById("palabrasClave");
@@ -479,7 +483,9 @@ function mostrarTabla(tablero) {
                       elemento.classList.add("correcta");
                       elemento.classList.remove("seleccionado");
                     }
-                    
+                    let numAciertos=parseInt(document.getElementById("aciertos").textContent);
+                    numAciertos++;
+                    document.getElementById("aciertos").innerText=numAciertos++;
                   }else{
                     //utilizo [...] para convertirlo de HTMLCollection a un array
                     var arraySelecionados=[...document.getElementsByClassName("seleccionado")];
