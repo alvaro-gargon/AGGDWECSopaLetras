@@ -1,25 +1,29 @@
+// var arrayPalabras = [ 
+//   "LUNES", 
+//   "MARTES", 
+//   "MIERCOLES", 
+//   "JUEVES", 
+//   "VIERNES", 
+//   "SABADO", 
+//   "DOMINGO", 
+//   "ENERO", 
+//   "FEBRERO", 
+//   "MARZO", 
+//   "ABRIL", 
+//   "MAYO", 
+//   "JUNIO", 
+//   "JULIO", 
+//   "AGOSTO", 
+//   "SEPTIEMBRE", 
+//   "OCTUBRE", 
+//   "NOVIEMBRE", 
+//   "DICIEMBRE", 
+// ]; 
 var arrayPalabras = [ 
   "LUNES", 
-  "MARTES", 
-  "MIERCOLES", 
-  "JUEVES", 
-  "VIERNES", 
-  "SABADO", 
-  "DOMINGO", 
-  "ENERO", 
-  "FEBRERO", 
-  "MARZO", 
-  "ABRIL", 
-  "MAYO", 
-  "JUNIO", 
-  "JULIO", 
-  "AGOSTO", 
-  "SEPTIEMBRE", 
-  "OCTUBRE", 
-  "NOVIEMBRE", 
-  "DICIEMBRE", 
+  "MARTES" 
 ]; 
-
+export var arrayPalabras;
 function mostrarPalabras(arrayPalabras){
   let arrayBuscar=arrayPalabras;
   let caja=document.getElementById("palabrasClave");
@@ -374,6 +378,8 @@ function mostrarTabla(tablero) {
           celda.setAttribute("data-columna",(j+1));
             celda.addEventListener("click",(ev)=>{
             //si ya hay una celda selccionada
+            console.log("----------",celda);
+            console.log("...........",ev.target);
             if(document.getElementsByClassName("seleccionado").length!==0){
               let celdaPrimera = document.getElementsByClassName("seleccionado")[0];
               //si las celdas selecciondas se encuentran en una direccion correcta
@@ -405,58 +411,55 @@ function mostrarTabla(tablero) {
                   }else{
                     //en el caso en el que la columna es la misma
                     if (celdaPrimera.getAttribute("data-columna")==celda.getAttribute("data-columna")) {
-                      let aux=0;
-                      let fila=Number(celdaPrimera.getAttribute("data-fila"));
-                      let columna=Number(celdaPrimera.getAttribute("data-columna"));
-                      //celda seleccionada hace referencia a la celda que se clico en primer lugar
-                      let celdaSeleccionada=null;
-                      
-                      let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
-                      celdaSeleccionada=document.querySelector(selector);
-                      while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila")) {
-                        
-                        let selector='[data-fila="'+(fila+aux)+'"][data-columna="'+(columna)+'"]';
-                        celdaSeleccionada=document.querySelector(selector);
-                        if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
-                          aux++;
-                        }else{
-                          aux--;
-                        }
-                        arrayContenido[contador]=celdaSeleccionada.textContent;
+                      let filaInicio = Number(celdaPrimera.getAttribute("data-fila"));
+                      let col = Number(celdaPrimera.getAttribute("data-columna"));
+                      let filaFin = Number(celda.getAttribute("data-fila"));
+
+                      // Determinar dirección
+                      let step = filaInicio <= filaFin ? 1 : -1;
+
+                      // Recorremos desde filaInicio hasta filaFin incluidos
+                      for (let c = filaInicio; c !== filaFin + step; c += step) {
+                        let selector = `[data-fila="${c}"][data-columna="${col}"]`;
+                        let celdaActual = document.querySelector(selector);
+
+                        arrayContenido[contador] = celdaActual.textContent;
                         contador++;
-                        celdaSeleccionada.classList.add("seleccionado");
-                        
+
+                        celdaActual.classList.add("seleccionado");
                       }
                     }else{
-                      //en el caso en el que la palabra este en diagonal
+                      // en el caso en el que la palabra este en diagonal
                       let auxFila=0;
                       let auxColumna=0;
                       let fila=Number(celdaPrimera.getAttribute("data-fila"));
                       let columna=Number(celdaPrimera.getAttribute("data-columna"));
+                      let colFin = Number(celda.getAttribute("data-columna"));
+                      let filafin=Number(celda.getAttribute("data-fila"));
                       //celda seleccionada hace referencia a la celda que se clico en primer lugar
                       let celdaSeleccionada=null;
                       
+                      auxFila= fila <= filafin ? 1 : -1;
+                      auxColumna = columna <= colFin ? 1 : -1;
+
                       let selector='[data-fila="'+fila+'"][data-columna="'+(columna)+'"]';
                       celdaSeleccionada=document.querySelector(selector);
+                      arrayContenido[contador]=celdaSeleccionada.textContent;
+                      contador++;
+                      celdaSeleccionada.classList.add("seleccionado");
                       while (celdaSeleccionada.getAttribute("data-fila")!==celda.getAttribute("data-fila") && 
                       celdaPrimera.getAttribute("data-columna")!==celda.getAttribute("data-columna")) {
                         
                         let selector='[data-fila="'+(fila+auxFila)+'"][data-columna="'+(columna+auxColumna)+'"]';
                         celdaSeleccionada=document.querySelector(selector);
-                        if(celdaSeleccionada.getAttribute("data-fila")<celda.getAttribute("data-fila")){
-                          auxFila++;
-                        }else{
-                          auxFila--;
-                        }
-                        if(celdaSeleccionada.getAttribute("data-columna")<celda.getAttribute("data-columna")){
-                          auxColumna++;
-                        }else{
-                          auxColumna--;
-                        }
+                        fila+=auxFila;
+                        columna+=auxColumna;
                         arrayContenido[contador]=celdaSeleccionada.textContent;
                         contador++;
                         celdaSeleccionada.classList.add("seleccionado");
                       }
+
+                    
                     }
                   }
                   //declaramos la palabra 
@@ -480,7 +483,9 @@ function mostrarTabla(tablero) {
                       elemento.classList.add("correcta");
                       elemento.classList.remove("seleccionado");
                     }
-                    
+                    let numAciertos=parseInt(document.getElementById("aciertos").textContent);
+                    numAciertos++;
+                    document.getElementById("aciertos").innerText=numAciertos++;
                   }else{
                     //utilizo [...] para convertirlo de HTMLCollection a un array
                     var arraySelecionados=[...document.getElementsByClassName("seleccionado")];

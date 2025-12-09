@@ -1,3 +1,5 @@
+import{arrayPalabras} from './tablero.js';
+
 if(navigator.cookieEnabled==false){
     alert("Cookies desactivadas, no se guardarán las puntuaciones");
 }
@@ -5,13 +7,11 @@ if(navigator.onLine==false){
     let mensaje=document.getElementById("offline");
     mensaje.style.display="block";
 }
-
+console.log(arrayPalabras.length);
 
 function rellenarTablaPuntuacion(puntuacion) {
     let tabla=document.getElementById("puntuaciones");
-    
-
-
+    console.log(puntuacion);
     if(localStorage.getItem("puntuacion1")>puntuacion || tabla.children[1]=="Sin tiempo"){
         let puntuacionSuperada=tabla.children[1];
         tabla.children[1].innerHTML=puntuacion;
@@ -78,11 +78,34 @@ function Reloj(){
 }
 
 Reloj();
-//ejecuto la funcion cada segundo, recordar que setTimeout usa milisegundos
+//ejecuto la funcion cada segundo, recordar que setInterval usa milisegundos
 setInterval(Reloj,1000);
-
-var boton= document.getElementsByTagName("button")[0];
+    
+    var boton= document.getElementsByTagName("button")[0];
+    let cronometro;
+    let tiempoFinal;
     boton.addEventListener("click",(ev)=>{
-    let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
-    sopaDeLetras.setAttribute('style','visibility: visible;');
-});
+        let sopaDeLetras=document.getElementsByClassName("contenedorSopaLetras")[0];
+        sopaDeLetras.setAttribute('style','visibility: visible;');
+        let segundos=0;
+        let minutos=0;
+        function tiempoPasando() {
+            let temporizador=document.getElementById("temporizador");
+            let aciertos=parseInt(document.getElementById("aciertos").textContent);
+            if (segundos===60) {
+                minutos++;
+                segundos=0;
+            }else{
+                segundos++;
+            }
+            temporizador.innerText=minutos+":"+(segundos<10 ? "0"+segundos : segundos);
+            if (arrayPalabras.length===aciertos) {
+                clearInterval(cronometro);
+                tiempoFinal=(minutos*60+segundos);
+                rellenarTablaPuntuacion(tiempoFinal)
+                return;
+            }
+        }
+        cronometro=setInterval(tiempoPasando,1000);
+        
+    });
