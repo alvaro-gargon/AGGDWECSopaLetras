@@ -11,31 +11,36 @@ console.log(arrayPalabras.length);
 
 function rellenarTablaPuntuacion(puntuacion) {
     let tabla=document.getElementById("puntuaciones");
-    console.log(puntuacion);
-    if(localStorage.getItem("puntuacion1")>puntuacion || tabla.children[1]=="Sin tiempo"){
+    console.log(localStorage.getItem("puntuacion1"));
+    let puntuacion1=document.querySelector("#puntuaciones tr:nth-child(2) td:nth-child(1)").textContent;
+    let puntuacion2=document.querySelector("#puntuaciones tr:nth-child(3) td:nth-child(1)").textContent;
+    let puntuacion3=document.querySelector("#puntuaciones tr:nth-child(4) td:nth-child(1)").textContent;
+    console.log(puntuacion1);
+    if(localStorage.getItem("puntuacion1")>puntuacion || puntuacion1=="Sin tiempo"){
+        console.log("entra maldito bastardo");
         let puntuacionSuperada=tabla.children[1];
-        tabla.children[1].innerHTML=puntuacion;
+        puntuacion1.textContent=puntuacion;
         localStorage.setItem("puntuacion1",puntuacion);
 
         if(localStorage.getItem("puntuacion1")>puntuacion){
-            tabla.children[2].innerHTML=puntuacionSuperada;
+            puntuacion1.innerHTML=puntuacionSuperada;
             localStorage.setItem("puntuacion2",puntuacionSuperada);
         }
         
     }else{
-        if(localStorage.getItem("puntuacion2")>puntuacion || tabla.children[2]=="Sin tiempo"){
-        let puntuacionSuperada=tabla.children[2];
-        tabla.children[2].innerHTML=puntuacion;
-        localStorage.setItem("puntuacion2",puntuacion);
+        if(localStorage.getItem("puntuacion2")>puntuacion || puntuacion2=="Sin tiempo"){
+            let puntuacionSuperada=puntuacion2;
+            puntuacion2.innerHTML=puntuacion;
+            localStorage.setItem("puntuacion2",puntuacion);
         
-        if(localStorage.getItem("puntuacion2")>puntuacion){
-            tabla.children[3].innerHTML=puntuacionSuperada;
-            localStorage.setItem("puntuacion3",puntuacionSuperada);
-        }
+            if(localStorage.getItem("puntuacion2")>puntuacion){
+                puntuacion3.innerHTML=puntuacionSuperada;
+                localStorage.setItem("puntuacion3",puntuacionSuperada);
+            }
         }else{
-            if(localStorage.getItem("puntuacion3")>puntuacion || tabla.children[3]=="Sin tiempo"){
-            tabla.children[3].innerHTML=puntuacion;
-            localStorage.setItem("puntuacion3",puntuacion);
+            if(localStorage.getItem("puntuacion3")>puntuacion || puntuacion3=="Sin tiempo"){
+                puntuacion3.innerHTML=puntuacion;
+                localStorage.setItem("puntuacion3",puntuacion);
             }
         }
     }

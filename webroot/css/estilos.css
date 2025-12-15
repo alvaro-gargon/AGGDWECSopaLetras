@@ -103,3 +103,7 @@ button{
     left: 50%;
     width: 30px;height: 10px;
 }
+
+#puntuaciones tr:nth-child(2) td:nth-child(1){
+    background-color: red;
+}
