@@ -1,5 +1,6 @@
 import{arrayPalabras} from './tablero.js';
-
+import{Puntuaciones} from './puntuaciones.js';
+var puntuaciones= new Puntuaciones();
 if(navigator.cookieEnabled==false){
     alert("Cookies desactivadas, no se guardarán las puntuaciones");
 }
@@ -9,42 +10,42 @@ if(navigator.onLine==false){
 }
 console.log(arrayPalabras.length);
 
-function rellenarTablaPuntuacion(puntuacion) {
+function rellenarTablaPuntuacion(puntuacion,dificultad="facil") {
     let tabla=document.getElementById("puntuaciones");
     console.log(localStorage.getItem("puntuacion1"));
-    let puntuacion1=document.querySelector("#puntuaciones tr:nth-child(2) td:nth-child(1)").textContent;
-    let puntuacion2=document.querySelector("#puntuaciones tr:nth-child(3) td:nth-child(1)").textContent;
-    let puntuacion3=document.querySelector("#puntuaciones tr:nth-child(4) td:nth-child(1)").textContent;
+    let puntuacion1=document.querySelector("#puntuaciones tr:nth-child(2) td:nth-child(1)");
+    let puntuacion2=document.querySelector("#puntuaciones tr:nth-child(3) td:nth-child(1)");
+    let puntuacion3=document.querySelector("#puntuaciones tr:nth-child(4) td:nth-child(1)");
     console.log(puntuacion1);
-    if(localStorage.getItem("puntuacion1")>puntuacion || puntuacion1=="Sin tiempo"){
-        console.log("entra maldito bastardo");
+    if(Number(localStorage.getItem("puntuacion1"))>puntuacion || puntuacion1.textContent=="Sin tiempo"){
         let puntuacionSuperada=tabla.children[1];
-        puntuacion1.textContent=puntuacion;
+        puntuacion1.innerHTML=puntuacion;
         localStorage.setItem("puntuacion1",puntuacion);
 
-        if(localStorage.getItem("puntuacion1")>puntuacion){
+        if(Number(localStorage.getItem("puntuacion1"))>puntuacion){
             puntuacion1.innerHTML=puntuacionSuperada;
             localStorage.setItem("puntuacion2",puntuacionSuperada);
         }
         
     }else{
-        if(localStorage.getItem("puntuacion2")>puntuacion || puntuacion2=="Sin tiempo"){
+        if(Number(localStorage.getItem("puntuacion2"))>puntuacion || puntuacion2.textContent=="Sin tiempo"){
             let puntuacionSuperada=puntuacion2;
             puntuacion2.innerHTML=puntuacion;
             localStorage.setItem("puntuacion2",puntuacion);
         
-            if(localStorage.getItem("puntuacion2")>puntuacion){
+            if(Number(localStorage.getItem("puntuacion2"))>puntuacion){
                 puntuacion3.innerHTML=puntuacionSuperada;
                 localStorage.setItem("puntuacion3",puntuacionSuperada);
             }
         }else{
-            if(localStorage.getItem("puntuacion3")>puntuacion || puntuacion3=="Sin tiempo"){
+            if(Number(localStorage.getItem("puntuacion3"))>puntuacion || puntuacion3.textContent=="Sin tiempo"){
                 puntuacion3.innerHTML=puntuacion;
                 localStorage.setItem("puntuacion3",puntuacion);
             }
         }
     }
 }
+rellenarTablaPuntuacion();
 
 function Reloj(){
    let contador=0; 
