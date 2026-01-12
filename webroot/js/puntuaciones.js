@@ -43,16 +43,29 @@ export class Puntuaciones{
             }
         }
     }
-    grabarPuntuaciones(puntuacion,dificultad){
-        if (dificultad.primero==0 || dificultad.primero>puntuacion) {
-            dificultad.primero=puntuacion;
-        }else{
-            if (condition) {
-                
-            }
-        }
+    esPrimero(puntuacion,dificultad=facil){
+        dificultad.primero=puntuacion;
     }
-    mostrarPuntuaciones(dificultad){
+    esSegundo(puntuacion,dificultad=facil){
+        dificultad.segundo=puntuacion;
+    }
+    esTercero(puntuacion,dificultad=facil){
+        dificultad.tercero=puntuacion;
+    }
+    // grabarPuntuaciones(puntuacion,dificultad="facil"){
+    //     if (dificultad.primero==0 || dificultad.primero>puntuacion) {
+    //         dificultad.primero=puntuacion;
+    //     }else{
+    //         if (dificultad.segundo==0 || dificultad.segundo>puntuacion) {
+    //             dificultad.segundo=puntuacion;
+    //         }else{
+    //             if (dificultad.tercero==0 || dificultad.tercero>puntuacion) {
+    //                 dificultad.tercero=puntuacion;
+    //             }
+    //         }
+    //     }
+    // }
+    mostrarPuntuaciones(dificultad="facil"){
         var aDatos=[];
         aDatos.push=this.dificultad.primero.nombre;
         aDatos.push=this.dificultad.primero.puntuacion;

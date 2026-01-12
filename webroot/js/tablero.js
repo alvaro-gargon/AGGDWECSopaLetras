@@ -367,9 +367,11 @@ function escribirPalabras(fila, columna, direccion, palabra, tablero) {
   } 
   return tablero; 
 } 
- 
+var jugando=false;
+var juegoFinalizado=false;
 function mostrarTabla(tablero) { 
-    const tabla=document.createElement("table"); 
+    const tabla=document.createElement("table");
+    jugando=true;
       for (let i = 0; i < tablero.length; i++) { 
         const fila=document.createElement("tr") 
         for (let j = 0; j < tablero[i].length; j++) { 
@@ -502,7 +504,6 @@ function mostrarTabla(tablero) {
                   }
               }//si las celdas seleccionadas se encuentran en una posicion incorrecta
               else{
-                alert("Direccion equivocada");
                 celdaPrimera.classList.remove("seleccionado");
               }
             }//si no hay una celda seleccionada

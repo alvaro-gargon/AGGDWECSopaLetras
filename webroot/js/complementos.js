@@ -1,6 +1,8 @@
 import{arrayPalabras} from './tablero.js';
+import{juegoFinalizado} from './tablero.js';
 import{Puntuaciones} from './puntuaciones.js';
 var puntuaciones= new Puntuaciones();
+
 if(navigator.cookieEnabled==false){
     alert("Cookies desactivadas, no se guardarán las puntuaciones");
 }
@@ -10,42 +12,41 @@ if(navigator.onLine==false){
 }
 console.log(arrayPalabras.length);
 
+    let puntuacion1=document.querySelector("#puntuaciones tr:nth-child(2) td:nth-child(2)");
+    let puntuacion2=document.querySelector("#puntuaciones tr:nth-child(3) td:nth-child(2)");
+    let puntuacion3=document.querySelector("#puntuaciones tr:nth-child(4) td:nth-child(2)");
+
+function mostrarTiemposTablaPuntuacionInicio() {
+    puntuacion1.textContent=localStorage.getItem("puntuacion1");
+    puntuacion2.textContent=localStorage.getItem("puntuacion2");
+    puntuacion3.textContent=localStorage.getItem("puntuacion3");
+}
+mostrarTiemposTablaPuntuacionInicio();
 function rellenarTablaPuntuacion(puntuacion,dificultad="facil") {
     let tabla=document.getElementById("puntuaciones");
     console.log(localStorage.getItem("puntuacion1"));
-    let puntuacion1=document.querySelector("#puntuaciones tr:nth-child(2) td:nth-child(1)");
-    let puntuacion2=document.querySelector("#puntuaciones tr:nth-child(3) td:nth-child(1)");
-    let puntuacion3=document.querySelector("#puntuaciones tr:nth-child(4) td:nth-child(1)");
+    
     console.log(puntuacion1);
-    if(Number(localStorage.getItem("puntuacion1"))>puntuacion || puntuacion1.textContent=="Sin tiempo"){
+    if(Number(localStorage.getItem("puntuacion1"))>puntuacion || localStorage.getItem("puntuacion1")==null){
         let puntuacionSuperada=tabla.children[1];
         puntuacion1.innerHTML=puntuacion;
         localStorage.setItem("puntuacion1",puntuacion);
-
-        if(Number(localStorage.getItem("puntuacion1"))>puntuacion){
-            puntuacion1.innerHTML=puntuacionSuperada;
-            localStorage.setItem("puntuacion2",puntuacionSuperada);
-        }
-        
+        puntuaciones.esPrimero(puntuacion);
     }else{
-        if(Number(localStorage.getItem("puntuacion2"))>puntuacion || puntuacion2.textContent=="Sin tiempo"){
+        if(Number(localStorage.getItem("puntuacion2"))>puntuacion || localStorage.getItem("puntuacion2")==null){
             let puntuacionSuperada=puntuacion2;
             puntuacion2.innerHTML=puntuacion;
             localStorage.setItem("puntuacion2",puntuacion);
-        
-            if(Number(localStorage.getItem("puntuacion2"))>puntuacion){
-                puntuacion3.innerHTML=puntuacionSuperada;
-                localStorage.setItem("puntuacion3",puntuacionSuperada);
-            }
+            puntuaciones.esSegundo(puntuacion);
         }else{
-            if(Number(localStorage.getItem("puntuacion3"))>puntuacion || puntuacion3.textContent=="Sin tiempo"){
+            if(Number(localStorage.getItem("puntuacion3"))>puntuacion || localStorage.getItem("puntuacion3")==null){
                 puntuacion3.innerHTML=puntuacion;
                 localStorage.setItem("puntuacion3",puntuacion);
+                puntuaciones.esTercero();
             }
         }
     }
 }
-rellenarTablaPuntuacion();
 
 function Reloj(){
    let contador=0; 
@@ -106,6 +107,7 @@ setInterval(Reloj,1000);
             }
             temporizador.innerText=minutos+":"+(segundos<10 ? "0"+segundos : segundos);
             if (arrayPalabras.length===aciertos) {
+                juegoFinalizado=true;
                 clearInterval(cronometro);
                 tiempoFinal=(minutos*60+segundos);
                 rellenarTablaPuntuacion(tiempoFinal)
@@ -113,5 +115,5 @@ setInterval(Reloj,1000);
             }
         }
         cronometro=setInterval(tiempoPasando,1000);
-        
+        tiempoPasando();
     });
