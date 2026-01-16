@@ -24,6 +24,7 @@ var arrayPalabras = [
   "MARTES" 
 ]; 
 export var arrayPalabras;
+var jugando=false;
 function mostrarPalabras(arrayPalabras){
   let arrayBuscar=arrayPalabras;
   let caja=document.getElementById("palabrasClave");
@@ -367,8 +368,7 @@ function escribirPalabras(fila, columna, direccion, palabra, tablero) {
   } 
   return tablero; 
 } 
-var jugando=false;
-var juegoFinalizado=false;
+
 function mostrarTabla(tablero) { 
     const tabla=document.createElement("table");
     jugando=true;

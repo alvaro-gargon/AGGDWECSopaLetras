@@ -43,13 +43,13 @@ export class Puntuaciones{
             }
         }
     }
-    esPrimero(puntuacion,dificultad=facil){
+    esPrimero(puntuacion,dificultad=this.facil){
         dificultad.primero=puntuacion;
     }
-    esSegundo(puntuacion,dificultad=facil){
+    esSegundo(puntuacion,dificultad=this.facil){
         dificultad.segundo=puntuacion;
     }
-    esTercero(puntuacion,dificultad=facil){
+    esTercero(puntuacion,dificultad=this.facil){
         dificultad.tercero=puntuacion;
     }
     // grabarPuntuaciones(puntuacion,dificultad="facil"){
