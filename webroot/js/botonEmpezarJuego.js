@@ -1,4 +1,4 @@
-import {rellenarTablaPuntuacion} from "./complementos.js";
+import {rellenarTablaPuntuacion} from "./tablaPuntuaciones.js";
 import{arrayPalabras} from './tablero.js';
 var boton= document.getElementsByTagName("button")[0];
     let cronometro;

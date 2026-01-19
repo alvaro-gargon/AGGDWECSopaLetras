@@ -27,6 +27,12 @@ h2{
 #puntuaciones td{
     text-align: center;
     border-top: 1px solid black;
+    width: 50%;
+}
+/* estilo para el input de la tabla puntuaciones */
+input{
+    width: 99%;
+    text-align: center;
 }
 footer{
     

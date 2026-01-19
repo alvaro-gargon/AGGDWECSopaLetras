@@ -43,14 +43,17 @@ export class Puntuaciones{
             }
         }
     }
-    esPrimero(puntuacion,dificultad=this.facil){
-        dificultad.primero=puntuacion;
+    esPrimero(usuario,puntuacion,dificultad=this.facil){
+        dificultad.primero.puntuacion=puntuacion;
+        dificultad.primero.nombre=usuario;
     }
-    esSegundo(puntuacion,dificultad=this.facil){
-        dificultad.segundo=puntuacion;
+    esSegundo(usuario,puntuacion,dificultad=this.facil){
+        dificultad.segundo.puntuacion=puntuacion;
+        dificultad.segundo.nombre=usuario;
     }
-    esTercero(puntuacion,dificultad=this.facil){
-        dificultad.tercero=puntuacion;
+    esTercero(usuario,puntuacion,dificultad=this.facil){
+        dificultad.tercero.puntuacion=puntuacion;
+        dificultad.tercero.nombre=usuario;
     }
     // grabarPuntuaciones(puntuacion,dificultad="facil"){
     //     if (dificultad.primero==0 || dificultad.primero>puntuacion) {
