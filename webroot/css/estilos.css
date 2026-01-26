@@ -11,6 +11,15 @@ h2{
     color: white;
     text-align: center;
 }
+.noApi{
+    display: none;
+    width: 100%;height: 48px;
+    line-height: 48px;
+    font-weight: 900;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
 #puntuaciones{
     position: relative;
     left: 15%;

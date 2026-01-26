@@ -1,30 +1,9 @@
-// var arrayPalabras = [ 
-//   "LUNES", 
-//   "MARTES", 
-//   "MIERCOLES", 
-//   "JUEVES", 
-//   "VIERNES", 
-//   "SABADO", 
-//   "DOMINGO", 
-//   "ENERO", 
-//   "FEBRERO", 
-//   "MARZO", 
-//   "ABRIL", 
-//   "MAYO", 
-//   "JUNIO", 
-//   "JULIO", 
-//   "AGOSTO", 
-//   "SEPTIEMBRE", 
-//   "OCTUBRE", 
-//   "NOVIEMBRE", 
-//   "DICIEMBRE", 
-// ]; 
-var arrayPalabras = [ 
-  "LUNES", 
-  "MARTES" 
-]; 
-export var arrayPalabras;
+import{recibirPalabras} from './ajax.js';
+
+var arrayPalabras=await recibirPalabras();
 var jugando=false;
+
+
 function mostrarPalabras(arrayPalabras){
   let arrayBuscar=arrayPalabras;
   let caja=document.getElementById("palabrasClave");
@@ -36,28 +15,11 @@ function mostrarPalabras(arrayPalabras){
 }
  
 /** 
-* 
-* @returns lista de las palabras ordenadas 
-*/ 
-function recibirPalabras() { 
-  let palabra; 
-  let lista = [];
-  do { 
-    palabra = prompt("Introduzca un palabra. Cancelar para salir."); 
-    if (palabra !== null) { 
-      //para que no tome en cuenta el null como parte del array. 
-      lista.push(palabra); 
-    } 
-  } while (palabra !== null); 
-  lista.sort((a, b) => a.length - b.length); 
-  return lista; 
-} 
- 
-/** 
 * @param (array) lista de las palabras ordenadas 
 * @returns (int) dimension de la matriz 
 */ 
-function calcularDimensiones(lista) { 
+function calcularDimensiones(lista) {
+  console.log(lista);
   let dimension; 
   let num_letras = 0; 
   for (const element of lista) { 
@@ -521,11 +483,12 @@ function mostrarTabla(tablero) {
     contenedorSopaLetras.appendChild(tabla);// añade la tabla al documento 
 } 
  
-// console.log(crearTablero(calcularDimensiones(arrayPalabras))); 
-let sopaDeLetras = crearTablero(calcularDimensiones(arrayPalabras)); 
-sopaDeLetras = calcularPosicionInicial(arrayPalabras, sopaDeLetras); 
-// console.log(sopaDeLetras); 
-sopaDeLetras=rellenarTablero(sopaDeLetras); 
-// console.log(sopaDeLetras); 
-mostrarTabla(sopaDeLetras); 
-mostrarPalabras(arrayPalabras);
+// console.log(crearTablero(calcularDimensiones(arrayPalabras)));
+
+  arrayPalabras=await recibirPalabras();
+  console.log(arrayPalabras);
+  let sopaDeLetras = crearTablero(calcularDimensiones(arrayPalabras)); 
+  sopaDeLetras = calcularPosicionInicial(arrayPalabras, sopaDeLetras);
+  sopaDeLetras=rellenarTablero(sopaDeLetras); 
+  mostrarTabla(sopaDeLetras); 
+  mostrarPalabras(arrayPalabras);
