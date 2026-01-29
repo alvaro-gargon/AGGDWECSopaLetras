@@ -449,6 +449,17 @@ function mostrarTabla(tablero) {
                     let numAciertos=parseInt(document.getElementById("aciertos").textContent);
                     numAciertos++;
                     document.getElementById("aciertos").innerText=numAciertos++;
+
+                    //código para tachar la palabra encontrada
+                    let palabrasClave=document.getElementsByTagName("span");
+                    console.log(palabra+',');
+                    for (const palabraClave of palabrasClave) {
+                      console.log(palabraClave)
+                      if (palabra+','===palabraClave) {
+                        palabraClave.style.textDecoration="line-through";
+                        console.log(palabraClave)
+                      }
+                    }
                   }else{
                     //utilizo [...] para convertirlo de HTMLCollection a un array
                     var arraySelecionados=[...document.getElementsByClassName("seleccionado")];
