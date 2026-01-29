@@ -1,6 +1,5 @@
 import{recibirPalabras} from './ajax.js';
 
-var arrayPalabras=await recibirPalabras();
 var jugando=false;
 
 
@@ -485,7 +484,11 @@ function mostrarTabla(tablero) {
  
 // console.log(crearTablero(calcularDimensiones(arrayPalabras)));
 
-  arrayPalabras=await recibirPalabras();
+  export const  arrayPalabras=await recibirPalabras();
+  for (let index = 0; index < arrayPalabras.length; index++) {
+    arrayPalabras[index]=arrayPalabras[index].toUpperCase();
+    console.log(arrayPalabras[index]);
+  }
   console.log(arrayPalabras);
   let sopaDeLetras = crearTablero(calcularDimensiones(arrayPalabras)); 
   sopaDeLetras = calcularPosicionInicial(arrayPalabras, sopaDeLetras);
